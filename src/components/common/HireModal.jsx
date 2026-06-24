@@ -18,7 +18,7 @@ const HireModal = ({
 
   return (
     <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-3xl max-w-md w-full p-6 md:p-8 shadow-2xl border border-slate-100 relative animate-in fade-in zoom-in-95 duration-200">
+      <div className="bg-[#FFFAFA] rounded-3xl max-w-md w-full p-6 md:p-8 shadow-2xl border border-slate-100 relative animate-in fade-in zoom-in-95 duration-200">
         <h3 className="font-display font-extrabold text-slate-900 text-2xl mb-2 text-left">
           Let's Work Together!
         </h3>
@@ -35,7 +35,7 @@ const HireModal = ({
               required
               type="text"
               placeholder="John Doe"
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-[#2563eb] font-sans text-sm"
+              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-[#6D8196] font-sans text-sm"
             />
           </div>
           <div>
@@ -46,7 +46,7 @@ const HireModal = ({
               required
               type="email"
               placeholder="john@example.com"
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-[#2563eb] font-sans text-sm"
+              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-[#6D8196] font-sans text-sm"
             />
           </div>
           <div>
@@ -57,7 +57,7 @@ const HireModal = ({
               required
               rows="3"
               placeholder="Tell me about what you are looking to build..."
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-[#2563eb] font-sans text-sm resize-none"
+              className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:border-[#6D8196] font-sans text-sm resize-none"
             />
           </div>
           <div className="flex space-x-3 pt-2">
@@ -70,7 +70,7 @@ const HireModal = ({
             </button>
             <button
               type="submit"
-              className="flex-1 px-4 py-3 rounded-xl bg-[#090e1a] text-white font-sans text-sm font-semibold hover:bg-[#2563eb] transition-all hover:shadow-lg active:scale-98"
+              className="flex-1 px-4 py-3 rounded-xl bg-[#000080] text-white font-sans text-sm font-semibold hover:bg-[#6D8196] transition-all hover:shadow-lg active:scale-98"
             >
               Send Message
             </button>

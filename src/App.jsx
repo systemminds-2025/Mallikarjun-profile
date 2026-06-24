@@ -4,12 +4,8 @@ import {
   SuccessToast,
   Hero,
   Features,
-  Footer,
   About,
   Skills,
-  Experience,
-  Projects,
-  Contact,
 } from './components';
 import { useNavigation } from './hooks/useNavigation';
 
@@ -29,12 +25,15 @@ function App() {
 
   // Scroll spy implementation using Intersection Observer
   useEffect(() => {
-    const sectionIds = ['home', 'about', 'skills', 'experience', 'projects', 'contact'];
+    const sectionIds = ['home', 'about', 'skills'];
     
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const id = entry.target.id;
+          if (id === 'home' && window.scrollY > 200) {
+            return;
+          }
           // Capitalize first letter to match constants NAV_ITEMS
           const tabName = id.charAt(0).toUpperCase() + id.slice(1);
           setActiveTab(tabName);
@@ -89,21 +88,21 @@ function App() {
   // Smooth scroll handler for CTA view work
   const handleViewWork = (e) => {
     if (e) e.preventDefault();
-    const el = document.getElementById('projects');
+    const el = document.getElementById('skills');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
-      setActiveTab('Projects');
+      setActiveTab('Skills');
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] flex flex-col justify-between pb-0 relative font-sans">
+    <div className="min-h-screen bg-[#FFFAFA] flex flex-col justify-between pb-0 relative font-sans">
       {/* Main Content Sections wrapper */}
       <div className="flex-grow w-full space-y-0 relative">
         
-        {/* Full-Screen Landing Wrapper (Hero & Highlights) */}
-        <div className="relative min-h-screen overflow-x-hidden scrollbar-none bg-[#f8fafc] flex items-center justify-center w-full scroll-reveal py-12 lg:py-0">
-          <div className="w-full max-w-7xl mx-auto px-6 md:px-10 lg:px-16 flex flex-col shrink-0">
+        {/* Hero Section (Sticky/Fixed Background on Desktop) */}
+        <div className="w-full bg-[#FFFAFA] relative md:sticky md:top-0 z-0 pt-16 md:pt-24 lg:pt-32 pb-0 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 w-full">
             <Hero
               onViewWork={handleViewWork}
               onHireClick={handleHireMe}
@@ -111,20 +110,14 @@ function App() {
           </div>
         </div>
 
-        {/* About Me & Education */}
-        <About />
+        {/* Scrollable Content overlaying the Hero */}
+        <div className="relative z-10 bg-[#FFFAFA] w-full">
+          {/* About Me & Education */}
+          <About />
 
-        {/* Technical Skills Category Grids */}
-        <Skills />
-
-        {/* Experience Timeline */}
-        <Experience />
-
-        {/* Featured Projects Grid */}
-        <Projects />
-
-        {/* Connect & Direct Message Form */}
-        <Contact onSubmit={handleContactSubmit} />
+          {/* Technical Skills Category Grids */}
+          <Skills />
+        </div>
       </div>
 
       {/* Hire Me Modal Form */}

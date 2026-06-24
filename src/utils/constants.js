@@ -1,9 +1,9 @@
 // Navigation items
-export const NAV_ITEMS = ['Home', 'About', 'Skills', 'Experience', 'Projects', 'Contact'];
+export const NAV_ITEMS = ['Home', 'About', 'Skills'];
 
 // Personal Info
 export const PERSONAL_INFO = {
-  name: 'Mallikarjuna S',
+  name: 'Mallikarjuna S Danduba',
   titles: ['AI Developer', 'Full Stack Developer', 'Generative AI Enthusiast'],
   location: 'Bengaluru, Karnataka, India',
   email: 'mallikarjuns5995@gmail.com',

@@ -154,7 +154,7 @@ const CategoryBlock = ({ category, index, activeIndex }) => {
       <div className={`relative flex items-center justify-center w-full h-full max-w-7xl mx-auto ${isLeft ? 'md:pr-[40%]' : 'md:pl-[40%]'}`}>
 
         {/* Central Hub & Spokes */}
-        <div className="relative z-10 flex items-center justify-center">
+        <div className="relative z-10 flex items-center justify-center -translate-y-4 md:-translate-y-8">
 
           {/* Spoke Lines */}
           {category.items.map((skill, i) => {
@@ -179,8 +179,8 @@ const CategoryBlock = ({ category, index, activeIndex }) => {
           })}
 
           {/* Central Big Circle (The Hub) */}
-          <div className={`w-28 h-28 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-blue-50 to-slate-50 text-slate-800 flex flex-col items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.06)] border-[4px] md:border-8 border-white z-20 relative`}>
-            <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest bg-blue-100/50 text-blue-700 px-2 md:px-3 py-1 rounded-full mb-1 shadow-sm">
+          <div className={`w-28 h-28 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-[#ADD8E6]/40 to-[#FFFAFA]/30 text-[#000080] flex flex-col items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.06)] border-[4px] md:border-8 border-[#FFFAFA] z-20 relative`}>
+            <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest bg-[#ADD8E6]/30 text-[#000080] px-2 md:px-3 py-1 rounded-full mb-1 shadow-sm">
               Skills of
             </span>
             <h3 className="text-base md:text-xl font-black text-center leading-tight font-display px-2">
@@ -224,7 +224,7 @@ const CategoryBlock = ({ category, index, activeIndex }) => {
         <div
           className={`z-50 pointer-events-none 
                 fixed bottom-4 left-1/2 -translate-x-1/2 w-[90vw] 
-                md:absolute md:top-0 md:bottom-0 md:translate-x-0 md:w-[40%] md:flex md:items-center md:justify-center
+                md:absolute md:top-1/2 md:-translate-y-1/2 md:-mt-8 md:bottom-auto md:translate-x-0 md:w-[40%] md:flex md:items-center md:justify-center
                 ${isLeft ? 'md:right-0 md:left-auto' : 'md:left-0 md:right-auto'} 
               `}
         >
@@ -313,23 +313,23 @@ const Skills = () => {
   }, []);
 
   return (
-    <section id="skills" ref={containerRef} className="w-full bg-[#f8fafc] border-y border-slate-200 relative h-[500vh]">
+    <section id="skills" ref={containerRef} className="w-full bg-[#FFFAFA] relative h-auto md:h-[500vh]">
 
-      {/* Sticky Viewport */}
-      <div className="sticky top-0 w-full h-[100dvh] overflow-hidden flex flex-col">
+      {/* Sticky Viewport on Desktop, normal flow on Mobile */}
+      <div className="relative md:sticky md:top-0 w-full md:h-[100dvh] md:overflow-hidden flex flex-col">
 
-        {/* Section Header (Relative flex-shrink-0 to prevent overlap) */}
-        <div className="pt-10 md:pt-16 pb-2 md:pb-6 text-center z-50 w-full px-4 shrink-0">
-          <h2 className="font-display font-black text-[#090e1a] text-3xl md:text-5xl tracking-tight drop-shadow-sm">
+        {/* Section Header */}
+        <div className="pt-10 md:pt-16 pb-4 md:pb-6 text-center z-50 w-full px-4 shrink-0">
+          <h2 className="font-display font-black text-[#000080] text-3xl md:text-5xl tracking-tight drop-shadow-sm">
             Tools & Technologies
           </h2>
-          <p className="font-sans text-sm md:text-base text-slate-500 max-w-2xl mx-auto mt-2 md:mt-4 drop-shadow-sm">
+          <p className="font-sans text-sm md:text-base text-[#6D8196] max-w-4xl mx-auto mt-2 md:mt-3 drop-shadow-sm">
             Scroll down to explore my complete ecosystem and technical proficiencies categorized by domain.
           </p>
         </div>
 
-        {/* Render all Categories stacked on top of each other in the remaining flex space */}
-        <div className="flex-1 relative w-full mb-10">
+        {/* Desktop View: Interactive Spoke Wheel Mind-Map */}
+        <div className="hidden md:block flex-1 relative w-full mb-10">
           {SKILLS.map((category, index) => (
             <CategoryBlock
               key={index}
@@ -337,6 +337,55 @@ const Skills = () => {
               index={index}
               activeIndex={activeIndex}
             />
+          ))}
+        </div>
+
+        {/* Mobile View: Responsive Category Cards Grid */}
+        <div className="block md:hidden w-full max-w-xl mx-auto px-6 mt-4 space-y-6 pb-16">
+          {SKILLS.map((cat, catIdx) => (
+            <div key={catIdx} className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm space-y-4 hover:shadow-md transition-shadow">
+              <h3 className="font-display font-extrabold text-[#000080] text-lg border-b border-slate-100 pb-2.5 flex items-center gap-2">
+                <span className="w-1.5 h-5 rounded-full bg-[#ADD8E6]"></span>
+                {cat.category}
+              </h3>
+              <div className="space-y-4">
+                {cat.items.map((skill, skillIdx) => {
+                  const iconData = getIconData(skill.name);
+                  const IconComponent = iconData.icon;
+                  const color = SPOKE_COLORS[skillIdx % SPOKE_COLORS.length];
+                  
+                  return (
+                    <div key={skillIdx} className="space-y-1.5 pb-2.5 border-b border-slate-50 last:border-0 last:pb-0">
+                      {/* Skill Header */}
+                      <div className="flex items-center gap-2">
+                        <div className="w-5 h-5 flex items-center justify-center shrink-0">
+                          {iconData.url ? (
+                            <img src={iconData.url} alt={skill.name} className="w-full h-full object-contain" />
+                          ) : (
+                            <IconComponent className="w-4 h-4" style={{ color: color }} strokeWidth={2} />
+                          )}
+                        </div>
+                        <span className="font-display font-bold text-slate-800 text-xs sm:text-sm">{skill.name}</span>
+                      </div>
+
+                      {/* Subskills List as Mini Tags */}
+                      {skill.subSkills && skill.subSkills.length > 0 && (
+                        <div className="flex flex-wrap gap-1 pl-7">
+                          {skill.subSkills.map((sub, subIdx) => (
+                            <span 
+                              key={subIdx} 
+                              className="font-sans text-[9px] font-semibold text-slate-500 bg-[#ADD8E6]/10 border border-[#ADD8E6]/20 px-1.5 py-0.5 rounded"
+                            >
+                              {sub}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
           ))}
         </div>
 
