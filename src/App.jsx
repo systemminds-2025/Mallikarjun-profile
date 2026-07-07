@@ -6,6 +6,9 @@ import {
   Features,
   About,
   Skills,
+  Experience,
+  Projects,
+  Contact
 } from './components';
 import { useNavigation } from './hooks/useNavigation';
 
@@ -25,7 +28,7 @@ function App() {
 
   // Scroll spy implementation using Intersection Observer
   useEffect(() => {
-    const sectionIds = ['home', 'about', 'skills'];
+    const sectionIds = ['home', 'about', 'skills', 'experience', 'projects', 'contact'];
     
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
@@ -96,9 +99,10 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFFAFA] flex flex-col justify-between pb-0 relative font-sans">
-      {/* Main Content Sections wrapper */}
-      <div className="flex-grow w-full space-y-0 relative">
+    <div className="min-h-screen bg-transparent flex flex-col justify-between pb-0 relative font-sans">
+      
+      {/* Main Content Sections wrapper (No solid bg needed, children cover the footer) */}
+      <main className="flex-grow w-full space-y-0 relative z-10 mb-[800px] lg:mb-[500px]">
         
         {/* Hero Section (Sticky/Fixed Background on Desktop) */}
         <div className="w-full bg-[#FFFAFA] relative md:sticky md:top-0 z-0 pt-16 md:pt-24 lg:pt-32 pb-0 overflow-hidden">
@@ -111,14 +115,18 @@ function App() {
         </div>
 
         {/* Scrollable Content overlaying the Hero */}
-        <div className="relative z-10 bg-[#FFFAFA] w-full">
-          {/* About Me & Education */}
-          <About />
-
-          {/* Technical Skills Category Grids */}
-          <Skills />
+        <div className="relative w-full bg-[#FFFAFA]">
+          <div className="relative z-[10] bg-white"><About /></div>
+          <div className="relative z-[20] bg-white"><Skills /></div>
+          <div className="relative z-[30] bg-white"><Experience /></div>
+          <div className="relative z-[40] bg-white"><Projects /></div>
         </div>
-      </div>
+      </main>
+
+      {/* Fixed Sticky Footer Reveal */}
+      <footer className="fixed bottom-0 left-0 w-full h-[800px] lg:h-[500px] z-0">
+        <Contact />
+      </footer>
 
       {/* Hire Me Modal Form */}
       <HireModal

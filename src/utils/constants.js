@@ -1,5 +1,5 @@
 // Navigation items
-export const NAV_ITEMS = ['Home', 'About', 'Skills'];
+export const NAV_ITEMS = ['Home', 'About', 'Skills', 'Experience', 'Projects'];
 
 // Personal Info
 export const PERSONAL_INFO = {

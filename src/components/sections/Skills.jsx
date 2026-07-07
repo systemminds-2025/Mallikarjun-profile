@@ -5,6 +5,7 @@ import {
   MousePointer2, Radio, Sparkles, TestTube2, Key, Bell, Briefcase,
   FileJson, Cloud, Package
 } from 'lucide-react';
+import ScrollReveal from '../common/ScrollReveal';
 import { SKILLS } from '../../utils/constants';
 
 const getIconData = (skillName) => {
@@ -180,9 +181,6 @@ const CategoryBlock = ({ category, index, activeIndex }) => {
 
           {/* Central Big Circle (The Hub) */}
           <div className={`w-28 h-28 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-[#ADD8E6]/40 to-[#FFFAFA]/30 text-[#000080] flex flex-col items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.06)] border-[4px] md:border-8 border-[#FFFAFA] z-20 relative`}>
-            <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest bg-[#ADD8E6]/30 text-[#000080] px-2 md:px-3 py-1 rounded-full mb-1 shadow-sm">
-              Skills of
-            </span>
             <h3 className="text-base md:text-xl font-black text-center leading-tight font-display px-2">
               {category.category}
             </h3>
@@ -240,9 +238,6 @@ const CategoryBlock = ({ category, index, activeIndex }) => {
                   <h4 className="text-4xl md:text-5xl font-black font-display text-slate-800 leading-tight mb-2 drop-shadow-sm">
                     {displaySkill.name}
                   </h4>
-                  <span className="text-xs font-bold text-blue-600 bg-blue-50/80 backdrop-blur-sm px-3 py-1 rounded-md uppercase tracking-widest inline-block mb-4 md:mb-6 shadow-sm">
-                    Ecosystem
-                  </span>
 
                   <ul className={`space-y-2 md:space-y-3 ${isLeft ? '' : 'flex flex-col md:items-end'}`}>
                     {displaySkill.subSkills?.map((sub, idx) => (
@@ -279,16 +274,21 @@ const CategoryBlock = ({ category, index, activeIndex }) => {
 
 const Skills = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
   const containerRef = useRef(null);
+  const mobileScrollRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
+      const container = containerRef.current;
+      if (!container) return;
+
+      const sectionTop = container.offsetTop;
+      const sectionHeight = container.offsetHeight;
       const windowHeight = window.innerHeight;
 
-      const scrollableDistance = rect.height - windowHeight;
-      const scrolledDistance = -rect.top;
+      const scrollableDistance = sectionHeight - windowHeight;
+      const scrolledDistance = window.scrollY - sectionTop;
 
       if (scrolledDistance < 0) {
         setActiveIndex(0);
@@ -301,32 +301,77 @@ const Skills = () => {
       }
 
       const progress = scrolledDistance / scrollableDistance;
-      let index = Math.floor(progress * SKILLS.length);
-      if (index >= SKILLS.length) index = SKILLS.length - 1;
+
+      let index = 0;
+      if (progress < 0.45) {
+        index = 0;
+      } else if (progress < 0.65) {
+        index = 1;
+      } else if (progress < 0.80) {
+        index = 2;
+      } else if (progress < 0.90) {
+        index = 3;
+      } else {
+        index = 4;
+      }
 
       setActiveIndex(index);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, []);
+
+  // Auto-scroll loop for mobile view category cards
+  useEffect(() => {
+    const checkViewport = () => window.innerWidth < 768;
+    if (!checkViewport()) return;
+
+    const interval = setInterval(() => {
+      const container = mobileScrollRef.current;
+      if (!container) return;
+
+      setMobileActiveIndex((prev) => {
+        const nextIndex = (prev + 1) % SKILLS.length;
+        // Width of a card (85vw) + Gap (20px)
+        const cardWidth = container.scrollWidth / SKILLS.length;
+        container.scrollTo({
+          left: nextIndex * cardWidth,
+          behavior: 'smooth'
+        });
+        return nextIndex;
+      });
+    }, 3500);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
-    <section id="skills" ref={containerRef} className="w-full bg-[#FFFAFA] relative h-auto md:h-[500vh]">
+    <section
+      id="skills"
+      ref={containerRef}
+      className="w-full bg-white relative h-auto md:h-[650vh]"
+    >
 
       {/* Sticky Viewport on Desktop, normal flow on Mobile */}
       <div className="relative md:sticky md:top-0 w-full md:h-[100dvh] md:overflow-hidden flex flex-col">
 
         {/* Section Header */}
-        <div className="pt-10 md:pt-16 pb-4 md:pb-6 text-center z-50 w-full px-4 shrink-0">
-          <h2 className="font-display font-black text-[#000080] text-3xl md:text-5xl tracking-tight drop-shadow-sm">
-            Tools & Technologies
-          </h2>
-          <p className="font-sans text-sm md:text-base text-[#6D8196] max-w-4xl mx-auto mt-2 md:mt-3 drop-shadow-sm">
-            Scroll down to explore my complete ecosystem and technical proficiencies categorized by domain.
-          </p>
-        </div>
+        <ScrollReveal animation="zoom-in">
+          <div className="pt-10 md:pt-16 pb-4 md:pb-6 text-center z-50 w-full px-4 shrink-0">
+            <h2 className="font-display font-black text-[#000080] text-3xl md:text-5xl tracking-tight drop-shadow-sm">
+              Tools & Technologies
+            </h2>
+            <p className="font-sans text-sm md:text-base text-[#6D8196] max-w-4xl mx-auto mt-2 md:mt-3 drop-shadow-sm">
+              Scroll down to explore my complete ecosystem and technical proficiencies categorized by domain.
+            </p>
+          </div>
+        </ScrollReveal>
 
         {/* Desktop View: Interactive Spoke Wheel Mind-Map */}
         <div className="hidden md:block flex-1 relative w-full mb-10">
@@ -340,53 +385,79 @@ const Skills = () => {
           ))}
         </div>
 
-        {/* Mobile View: Responsive Category Cards Grid */}
-        <div className="block md:hidden w-full max-w-xl mx-auto px-6 mt-4 space-y-6 pb-16">
-          {SKILLS.map((cat, catIdx) => (
-            <div key={catIdx} className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm space-y-4 hover:shadow-md transition-shadow">
-              <h3 className="font-display font-extrabold text-[#000080] text-lg border-b border-slate-100 pb-2.5 flex items-center gap-2">
-                <span className="w-1.5 h-5 rounded-full bg-[#ADD8E6]"></span>
-                {cat.category}
-              </h3>
-              <div className="space-y-4">
-                {cat.items.map((skill, skillIdx) => {
-                  const iconData = getIconData(skill.name);
-                  const IconComponent = iconData.icon;
-                  const color = SPOKE_COLORS[skillIdx % SPOKE_COLORS.length];
-                  
-                  return (
-                    <div key={skillIdx} className="space-y-1.5 pb-2.5 border-b border-slate-50 last:border-0 last:pb-0">
-                      {/* Skill Header */}
-                      <div className="flex items-center gap-2">
-                        <div className="w-5 h-5 flex items-center justify-center shrink-0">
-                          {iconData.url ? (
-                            <img src={iconData.url} alt={skill.name} className="w-full h-full object-contain" />
-                          ) : (
-                            <IconComponent className="w-4 h-4" style={{ color: color }} strokeWidth={2} />
-                          )}
-                        </div>
-                        <span className="font-display font-bold text-slate-800 text-xs sm:text-sm">{skill.name}</span>
-                      </div>
+        {/* Mobile View: Responsive Category Cards - sliding side-by-side with animated dots */}
+        <div className="block md:hidden w-full mt-4 pb-16">
+          <div
+            ref={mobileScrollRef}
+            className="flex overflow-x-auto snap-x snap-mandatory scrollbar-none gap-5 px-6 pb-6"
+            onScroll={(e) => {
+              const scrollLeft = e.currentTarget.scrollLeft;
+              const cardWidth = e.currentTarget.scrollWidth / SKILLS.length;
+              const newIndex = Math.round(scrollLeft / cardWidth);
+              if (newIndex >= 0 && newIndex < SKILLS.length) {
+                setMobileActiveIndex(newIndex);
+              }
+            }}
+          >
+            {SKILLS.map((cat, catIdx) => (
+              <div
+                key={catIdx}
+                className="w-[85vw] snap-center bg-white rounded-2xl border border-slate-100 p-4 shadow-sm space-y-3 hover:shadow-md transition-all duration-300 shrink-0"
+              >
+                <h3 className="font-display font-extrabold text-[#000080] text-base border-b border-slate-100 pb-1.5 flex items-center gap-2">
+                  <span className="w-1.5 h-4 rounded-full bg-[#ADD8E6]"></span>
+                  {cat.category}
+                </h3>
+                <div className="space-y-2.5">
+                  {cat.items.map((skill, skillIdx) => {
+                    const iconData = getIconData(skill.name);
+                    const IconComponent = iconData.icon;
+                    const color = SPOKE_COLORS[skillIdx % SPOKE_COLORS.length];
 
-                      {/* Subskills List as Mini Tags */}
-                      {skill.subSkills && skill.subSkills.length > 0 && (
-                        <div className="flex flex-wrap gap-1 pl-7">
-                          {skill.subSkills.map((sub, subIdx) => (
-                            <span 
-                              key={subIdx} 
-                              className="font-sans text-[9px] font-semibold text-slate-500 bg-[#ADD8E6]/10 border border-[#ADD8E6]/20 px-1.5 py-0.5 rounded"
-                            >
-                              {sub}
-                            </span>
-                          ))}
+                    return (
+                      <div key={skillIdx} className="space-y-1 pb-1.5 border-b border-slate-50 last:border-0 last:pb-0">
+                        {/* Skill Header */}
+                        <div className="flex items-center gap-2">
+                          <div className="w-4 h-4 flex items-center justify-center shrink-0">
+                            {iconData.url ? (
+                              <img src={iconData.url} alt={skill.name} className="w-full h-full object-contain" />
+                            ) : (
+                              <IconComponent className="w-3.5 h-3.5" style={{ color: color }} strokeWidth={2} />
+                            )}
+                          </div>
+                          <span className="font-display font-bold text-slate-800 text-xs sm:text-sm">{skill.name}</span>
                         </div>
-                      )}
-                    </div>
-                  );
-                })}
+
+                        {/* Subskills List as Mini Tags */}
+                        {skill.subSkills && skill.subSkills.length > 0 && (
+                          <div className="flex flex-wrap gap-1 pl-6">
+                            {skill.subSkills.map((sub, subIdx) => (
+                              <span
+                                key={subIdx}
+                                className="font-sans text-[9px] font-semibold text-slate-500 bg-[#ADD8E6]/10 border border-[#ADD8E6]/20 px-1.5 py-0.5 rounded"
+                              >
+                                {sub}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          {/* Slider Dots Indicator */}
+          <div className="flex justify-center gap-2 mt-2">
+            {SKILLS.map((_, dotIdx) => (
+              <div
+                key={dotIdx}
+                className={`h-1.5 rounded-full transition-all duration-300 ${mobileActiveIndex === dotIdx ? 'w-6 bg-[#000080]' : 'w-1.5 bg-[#000080]/30'}`}
+              />
+            ))}
+          </div>
         </div>
 
       </div>

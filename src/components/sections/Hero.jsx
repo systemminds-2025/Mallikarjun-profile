@@ -6,6 +6,7 @@ import ifocusLogo from '../../assets/trusted/ifocus.png';
 import wakinLogo from '../../assets/trusted/wakin.png';
 import validprofileLogo from '../../assets/trusted/validprofile.png';
 import qwikhireLogo from '../../assets/trusted/qwikhire.png';
+import ScrollReveal from '../common/ScrollReveal';
 
 
 /**
@@ -56,63 +57,73 @@ const Hero = ({ onViewWork, onHireClick }) => {
       {/* Left Column: Content */}
       <div className="lg:col-span-7 flex flex-col items-start space-y-3 md:space-y-4 z-10 text-left pt-0">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2.5 bg-[#ADD8E6]/25 border border-[#ADD8E6]/50 rounded-full px-4 py-1.5 transition-all duration-300 hover:shadow-md hover:shadow-cyan-100/50 hover:scale-[1.03]">
-          <span className="flex h-2 w-2 relative">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ADD8E6] opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#6D8196]"></span>
-          </span>
-          <span className="text-[#6D8196] text-[11px] font-extrabold tracking-wider uppercase font-display select-none">
-            Hello, I'm
-          </span>
-        </div>
+        <ScrollReveal animation="slide-right" delay={100}>
+          <div className="inline-flex items-center gap-2.5 bg-[#ADD8E6]/25 border border-[#ADD8E6]/50 rounded-full px-4 py-1.5 transition-all duration-300 hover:shadow-md hover:shadow-cyan-100/50 hover:scale-[1.03]">
+            <span className="flex h-2 w-2 relative">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ADD8E6] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#6D8196]"></span>
+            </span>
+            <span className="text-[#6D8196] text-[11px] font-extrabold tracking-wider uppercase font-display select-none">
+              Hello, I'm
+            </span>
+          </div>
+        </ScrollReveal>
 
         {/* Title */}
-        <div className="space-y-0.5">
-          <h1 className="font-display font-extrabold text-[#000080] text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.1] max-w-xl">
-            {PERSONAL_INFO.name}
-          </h1>
-          <div className="h-10 md:h-12 flex items-center">
-            <span className="bg-gradient-to-r from-[#000080] to-[#ADD8E6] bg-clip-text text-transparent font-display font-extrabold text-2xl md:text-3xl lg:text-4xl transition-all duration-500">
-              {displayedText}
-            </span>
-            <span className="inline-block w-[3px] h-[0.9em] bg-[#000080] ml-1.5 animate-blink rounded-sm self-center"></span>
+        <ScrollReveal animation="slide-right" delay={200}>
+          <div className="space-y-0.5">
+            <h1 className="font-display font-extrabold text-[#000080] text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.1] max-w-xl">
+              {PERSONAL_INFO.name}
+            </h1>
+            <div className="h-10 md:h-12 flex items-center">
+              <span className="bg-gradient-to-r from-[#000080] to-[#ADD8E6] bg-clip-text text-transparent font-display font-extrabold text-2xl md:text-3xl lg:text-4xl transition-all duration-500">
+                {displayedText}
+              </span>
+              <span className="inline-block w-[3px] h-[0.9em] bg-[#000080] ml-1.5 animate-blink rounded-sm self-center"></span>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Description */}
-        <p className="text-slate-500 text-base md:text-lg font-sans max-w-xl leading-snug">
-          {PERSONAL_INFO.bio}
-        </p>
+        <ScrollReveal animation="slide-right" delay={300}>
+          <p className="text-slate-500 text-base md:text-lg font-sans max-w-xl leading-snug">
+            {PERSONAL_INFO.bio}
+          </p>
+        </ScrollReveal>
 
 
         {/* CTA Buttons Row */}
-        <div className="flex flex-row flex-nowrap items-center gap-2 sm:gap-4 w-full sm:w-auto">
-          <button
-            onClick={onViewWork}
-            className="flex items-center justify-center space-x-1.5 bg-[#000080] hover:bg-[#6D8196] text-white font-sans text-xs sm:text-sm font-semibold px-4 py-2.5 sm:px-6 sm:py-3.5 rounded-xl transition-all hover:shadow-xl hover:shadow-blue-100 active:scale-98 cursor-pointer flex-1 sm:flex-none"
-          >
-            <span>View My Work</span>
-            <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-          </button>
+        <ScrollReveal animation="fade-up" delay={400}>
+          <div className="flex flex-row flex-nowrap items-center gap-2 sm:gap-4 w-full sm:w-auto">
+            <button
+              onClick={onViewWork}
+              className="flex items-center justify-center space-x-1.5 bg-[#000080] hover:bg-[#6D8196] text-white font-sans text-xs sm:text-sm font-semibold px-4 py-2.5 sm:px-6 sm:py-3.5 rounded-xl transition-all hover:shadow-xl hover:shadow-blue-100 active:scale-98 cursor-pointer flex-1 sm:flex-none"
+            >
+              <span>View My Work</span>
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+            </button>
 
-          <a
-            href="#download-cv"
-            onClick={(e) => {
-              e.preventDefault();
-              alert('CV Download started (mock)');
-            }}
-            className="flex items-center justify-center space-x-1.5 bg-[#FFFAFA] hover:bg-[#ADD8E6]/10 border border-[#ADD8E6]/50 text-[#000080] font-sans text-xs sm:text-sm font-semibold px-4 py-2.5 sm:px-6 sm:py-3.5 rounded-xl transition-all active:scale-98 cursor-pointer flex-1 sm:flex-none"
-          >
-            <span>Download CV</span>
-            <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-500 shrink-0" />
-          </a>
-        </div>
+            <a
+              href="#download-cv"
+              onClick={(e) => {
+                e.preventDefault();
+                alert('CV Download started (mock)');
+              }}
+              className="flex items-center justify-center space-x-1.5 bg-[#FFFAFA] hover:bg-[#ADD8E6]/10 border border-[#ADD8E6]/50 text-[#000080] font-sans text-xs sm:text-sm font-semibold px-4 py-2.5 sm:px-6 sm:py-3.5 rounded-xl transition-all active:scale-98 cursor-pointer flex-1 sm:flex-none"
+            >
+              <span>Download CV</span>
+              <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-500 shrink-0" />
+            </a>
+          </div>
+        </ScrollReveal>
 
 
         {/* Trusted By Logos */}
-        <div className="w-full">
-          <TrustedBySection />
-        </div>
+        <ScrollReveal animation="fade-up" delay={500} className="w-full">
+          <div className="w-full">
+            <TrustedBySection />
+          </div>
+        </ScrollReveal>
       </div>
 
       {/* Right Column: Visual Elements & Profile Image */}
@@ -124,13 +135,13 @@ const Hero = ({ onViewWork, onHireClick }) => {
         <HeroBackgroundGraphic />
 
         {/* Profile Image */}
-        <div className="relative w-[240px] sm:w-[380px] lg:w-[420px] z-10 group transition-all duration-500 hover:scale-[1.02] mb-0">
+        <ScrollReveal animation="zoom-in" delay={300} className="relative w-[240px] sm:w-[380px] lg:w-[420px] z-10 group transition-all duration-500 hover:scale-[1.02] mb-0">
           <img
             src={malliImg}
             alt={PERSONAL_INFO.name}
             className="w-full h-auto block select-none pointer-events-none"
           />
-        </div>
+        </ScrollReveal>
 
         {/* Floating Badges */}
         <FloatingBadges />
