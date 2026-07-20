@@ -91,10 +91,10 @@ function App() {
   // Smooth scroll handler for CTA view work
   const handleViewWork = (e) => {
     if (e) e.preventDefault();
-    const el = document.getElementById('skills');
+    const el = document.getElementById('experience');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
-      setActiveTab('Skills');
+      setActiveTab('Experience');
     }
   };
 

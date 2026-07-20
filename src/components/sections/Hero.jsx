@@ -7,6 +7,7 @@ import wakinLogo from '../../assets/trusted/wakin.png';
 import validprofileLogo from '../../assets/trusted/validprofile.png';
 import qwikhireLogo from '../../assets/trusted/qwikhire.png';
 import ScrollReveal from '../common/ScrollReveal';
+import resumePdf from '../../file/Mallikarjuna S AI Developer.pdf';
 
 
 /**
@@ -104,11 +105,8 @@ const Hero = ({ onViewWork, onHireClick }) => {
             </button>
 
             <a
-              href="#download-cv"
-              onClick={(e) => {
-                e.preventDefault();
-                alert('CV Download started (mock)');
-              }}
+              href={resumePdf}
+              download="Mallikarjuna_S_Resume.pdf"
               className="flex items-center justify-center space-x-1.5 bg-[#FFFAFA] hover:bg-[#ADD8E6]/10 border border-[#ADD8E6]/50 text-[#000080] font-sans text-[11px] sm:text-sm font-semibold px-4 py-2.5 sm:px-6 sm:py-3.5 rounded-xl transition-all active:scale-98 cursor-pointer whitespace-nowrap"
             >
               <span>Download CV</span>
