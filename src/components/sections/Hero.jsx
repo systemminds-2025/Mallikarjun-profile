@@ -51,20 +51,16 @@ const Hero = ({ onViewWork, onHireClick }) => {
   return (
     <main id="home" className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8 lg:gap-4 items-center flex-grow w-full relative mb-0 pt-0">
       {/* Giant Typography Background Watermark */}
-      <div className="absolute top-[-6%] sm:top-[-14%] md:top-[-18%] lg:top-[-22%] left-1/2 -translate-x-1/2 w-max text-[13vw] sm:text-[8rem] md:text-[11rem] lg:text-[14rem] font-display font-black text-[#6D8196]/8 leading-none select-none pointer-events-none z-0 tracking-normal uppercase whitespace-nowrap">
+      <div className="absolute top-[-8%] sm:top-[-10%] md:top-[-14%] lg:top-[-18%] left-1/2 -translate-x-1/2 w-max text-center text-[15vw] sm:text-[13vw] md:text-[14vw] lg:text-[15vw] font-display font-black text-[#6D8196]/8 leading-none select-none pointer-events-none z-0 tracking-tighter uppercase whitespace-nowrap">
         DEVELOPER
       </div>
 
       {/* Left Column: Content */}
       <div className="lg:col-span-7 flex flex-col items-start space-y-3 md:space-y-4 z-10 text-left pt-0">
-        {/* Badge */}
+        {/* Greeting Text */}
         <ScrollReveal animation="slide-right" delay={100}>
-          <div className="inline-flex items-center gap-2.5 bg-[#ADD8E6]/25 border border-[#ADD8E6]/50 rounded-full px-4 py-1.5 transition-all duration-300 hover:shadow-md hover:shadow-cyan-100/50 hover:scale-[1.03]">
-            <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ADD8E6] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#6D8196]"></span>
-            </span>
-            <span className="text-[#6D8196] text-[11px] font-extrabold tracking-wider uppercase font-display select-none">
+          <div className="flex items-center gap-2.5 mb-1 lg:mb-2">
+            <span className="text-[#6D8196] text-sm md:text-base font-extrabold tracking-widest uppercase font-display select-none">
               Hello, I'm
             </span>
           </div>

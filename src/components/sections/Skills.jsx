@@ -108,7 +108,8 @@ const CategoryBlock = ({ category, index, activeIndex }) => {
     return () => window.removeEventListener('resize', updateSizes);
   }, []);
 
-  const isLeft = index % 2 === 0;
+  // Invert the layout so content starts on the opposite side
+  const isLeft = index % 2 !== 0;
   const numSkills = category.items.length;
 
   const isActive = index === activeIndex;
@@ -157,65 +158,69 @@ const CategoryBlock = ({ category, index, activeIndex }) => {
         {/* Central Hub & Spokes */}
         <div className="relative z-10 flex items-center justify-center -translate-y-4 md:-translate-y-8">
 
-          {/* Spoke Lines */}
-          {category.items.map((skill, i) => {
-            const angleRad = (i / numSkills) * 2 * Math.PI - Math.PI / 2;
-            const angleDeg = angleRad * (180 / Math.PI);
-            const color = SPOKE_COLORS[i % SPOKE_COLORS.length];
+          {/* Rotating Wrapper for Spokes and Nodes */}
+          <div className="absolute flex items-center justify-center animate-[spin_40s_linear_infinite]">
+            
+            {/* Spoke Lines */}
+            {category.items.map((skill, i) => {
+              const angleRad = (i / numSkills) * 2 * Math.PI - Math.PI / 2;
+              const angleDeg = angleRad * (180 / Math.PI);
+              const color = SPOKE_COLORS[i % SPOKE_COLORS.length];
 
-            const lineWidth = sizes.radius - sizes.innerGap - sizes.outerGap;
+              const lineWidth = sizes.radius - sizes.innerGap - sizes.outerGap;
 
-            return (
-              <div
-                key={`line-${i}`}
-                className="absolute top-1/2 left-1/2 origin-left z-0"
-                style={{
-                  width: `${Math.max(0, lineWidth)}px`,
-                  height: '1px',
-                  backgroundColor: color,
-                  transform: `translateY(-50%) rotate(${angleDeg}deg) translateX(${sizes.innerGap}px)`
-                }}
-              />
-            );
-          })}
+              return (
+                <div
+                  key={`line-${i}`}
+                  className="absolute top-1/2 left-1/2 origin-left z-0"
+                  style={{
+                    width: `${Math.max(0, lineWidth)}px`,
+                    height: '1px',
+                    backgroundColor: color,
+                    transform: `translateY(-50%) rotate(${angleDeg}deg) translateX(${sizes.innerGap}px)`
+                  }}
+                />
+              );
+            })}
 
-          {/* Central Big Circle (The Hub) */}
+            {/* Small Skill Nodes (The Spokes) */}
+            {category.items.map((skill, i) => {
+              const angle = (i / numSkills) * 2 * Math.PI - Math.PI / 2;
+              const x = Math.cos(angle) * sizes.radius;
+              const y = Math.sin(angle) * sizes.radius;
+              const color = SPOKE_COLORS[i % SPOKE_COLORS.length];
+              const iconData = getIconData(skill.name);
+              const IconComponent = iconData.icon;
+
+              return (
+                <div
+                  key={`node-${i}`}
+                  className="absolute top-1/2 left-1/2 w-0 h-0 z-30 flex items-center justify-center cursor-pointer"
+                  style={{
+                    transform: `translate(${x}px, ${y}px)`
+                  }}
+                  onMouseEnter={() => setHoveredSkill(skill)}
+                  onMouseLeave={() => setHoveredSkill(null)}
+                >
+                  {/* Pure Floating Icon - Counter Rotate to stay upright */}
+                  <div className="absolute w-8 h-8 md:w-12 md:h-12 flex items-center justify-center hover:scale-125 transition-transform drop-shadow-md animate-[spin_40s_linear_infinite_reverse]">
+                    {iconData.url ? (
+                      <img src={iconData.url} alt={skill.name} className="w-full h-full object-contain" />
+                    ) : (
+                      <IconComponent className={`w-full h-full`} style={{ color: color }} strokeWidth={1.5} />
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* Central Big Circle (The Hub) - Static so text doesn't rotate */}
           <div className={`w-28 h-28 md:w-40 md:h-40 rounded-full bg-gradient-to-br from-[#ADD8E6]/40 to-[#FFFAFA]/30 text-[#000080] flex flex-col items-center justify-center shadow-[0_8px_30px_rgba(0,0,0,0.06)] border-[4px] md:border-8 border-[#FFFAFA] z-20 relative`}>
             <h3 className="text-base md:text-xl font-black text-center leading-tight font-display px-2">
               {category.category}
             </h3>
           </div>
-
-          {/* Small Skill Nodes (The Spokes) */}
-          {category.items.map((skill, i) => {
-            const angle = (i / numSkills) * 2 * Math.PI - Math.PI / 2;
-            const x = Math.cos(angle) * sizes.radius;
-            const y = Math.sin(angle) * sizes.radius;
-            const color = SPOKE_COLORS[i % SPOKE_COLORS.length];
-            const iconData = getIconData(skill.name);
-            const IconComponent = iconData.icon;
-
-            return (
-              <div
-                key={`node-${i}`}
-                className="absolute top-1/2 left-1/2 w-0 h-0 z-30 flex items-center justify-center cursor-pointer"
-                style={{
-                  transform: `translate(${x}px, ${y}px)`
-                }}
-                onMouseEnter={() => setHoveredSkill(skill)}
-                onMouseLeave={() => setHoveredSkill(null)}
-              >
-                {/* Pure Floating Icon */}
-                <div className="absolute w-8 h-8 md:w-12 md:h-12 flex items-center justify-center hover:scale-125 transition-transform drop-shadow-md">
-                  {iconData.url ? (
-                    <img src={iconData.url} alt={skill.name} className="w-full h-full object-contain" />
-                  ) : (
-                    <IconComponent className={`w-full h-full`} style={{ color: color }} strokeWidth={1.5} />
-                  )}
-                </div>
-              </div>
-            )
-          })}
         </div>
 
         {/* Content (Hero Style, Perfectly centered in empty space) */}
@@ -283,12 +288,12 @@ const Skills = () => {
       const container = containerRef.current;
       if (!container) return;
 
-      const sectionTop = container.offsetTop;
+      const rect = container.getBoundingClientRect();
       const sectionHeight = container.offsetHeight;
       const windowHeight = window.innerHeight;
 
       const scrollableDistance = sectionHeight - windowHeight;
-      const scrolledDistance = window.scrollY - sectionTop;
+      const scrolledDistance = -rect.top;
 
       if (scrolledDistance < 0) {
         setActiveIndex(0);
@@ -303,13 +308,13 @@ const Skills = () => {
       const progress = scrolledDistance / scrollableDistance;
 
       let index = 0;
-      if (progress < 0.45) {
+      if (progress < 0.20) {
         index = 0;
-      } else if (progress < 0.65) {
+      } else if (progress < 0.40) {
         index = 1;
-      } else if (progress < 0.80) {
+      } else if (progress < 0.60) {
         index = 2;
-      } else if (progress < 0.90) {
+      } else if (progress < 0.80) {
         index = 3;
       } else {
         index = 4;
@@ -355,7 +360,7 @@ const Skills = () => {
     <section
       id="skills"
       ref={containerRef}
-      className="w-full bg-white relative h-auto md:h-[650vh]"
+      className="w-full bg-white relative h-auto md:h-[250vh]"
     >
 
       {/* Sticky Viewport on Desktop, normal flow on Mobile */}

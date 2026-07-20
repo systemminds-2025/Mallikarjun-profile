@@ -99,13 +99,13 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-transparent flex flex-col justify-between pb-0 relative font-sans">
+    <div className="min-h-screen bg-transparent flex flex-col justify-between pb-0 relative font-sans overflow-x-clip w-full max-w-[100vw]">
       
       {/* Main Content Sections wrapper (No solid bg needed, children cover the footer) */}
       <main className="flex-grow w-full space-y-0 relative z-10 mb-[800px] lg:mb-[500px]">
         
         {/* Hero Section (Sticky/Fixed Background on Desktop) */}
-        <div className="w-full bg-[#FFFAFA] sticky top-0 z-0 pt-8 sm:pt-16 md:pt-24 lg:pt-32 pb-0 overflow-hidden">
+        <div className="w-full bg-[#FFFAFA] sticky top-0 z-0 pt-16 md:pt-24 lg:pt-32 pb-0 overflow-hidden">
           <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 w-full">
             <Hero
               onViewWork={handleViewWork}
@@ -115,8 +115,8 @@ function App() {
         </div>
 
         {/* Scrollable Content overlaying the Hero */}
-        <div className="relative w-full bg-[#FFFAFA]">
-          <div className="relative z-[10] bg-white"><About /></div>
+        <div className="relative w-full shadow-[0_-20px_50px_rgba(0,0,0,0.05)] rounded-t-[3.5rem] lg:rounded-t-[5.5rem] bg-white z-10">
+          <div className="relative z-[10] bg-white rounded-t-[3.5rem] lg:rounded-t-[5.5rem] overflow-hidden"><About /></div>
           <div className="relative z-[20] bg-white"><Skills /></div>
           <div className="relative z-[30] bg-white"><Experience /></div>
           <div className="relative z-[40] bg-white"><Projects /></div>

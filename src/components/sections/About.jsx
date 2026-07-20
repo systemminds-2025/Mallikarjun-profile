@@ -12,7 +12,7 @@ import AnimatedCounter from '../common/AnimatedCounter';
  */
 const About = () => {
   return (
-    <section id="about" className="relative z-20 w-full flex flex-col justify-center bg-gradient-to-b from-[#ADD8E6] to-transparent rounded-t-[3.5rem] lg:rounded-t-[5.5rem] shadow-[0_-10px_40px_rgba(0,0,0,0.04)] py-16 lg:py-24">
+    <section id="about" className="relative z-20 w-full flex flex-col justify-center bg-gradient-to-b from-[#ADD8E6] to-transparent py-16 lg:py-24">
       <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
         
