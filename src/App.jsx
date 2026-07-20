@@ -105,7 +105,7 @@ function App() {
       <main className="flex-grow w-full space-y-0 relative z-10 mb-[800px] lg:mb-[500px]">
         
         {/* Hero Section (Sticky/Fixed Background on Desktop) */}
-        <div className="w-full bg-[#FFFAFA] relative md:sticky md:top-0 z-0 pt-16 md:pt-24 lg:pt-32 pb-0 overflow-hidden">
+        <div className="w-full bg-[#FFFAFA] sticky top-0 z-0 pt-16 md:pt-24 lg:pt-32 pb-0 overflow-hidden">
           <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 w-full">
             <Hero
               onViewWork={handleViewWork}

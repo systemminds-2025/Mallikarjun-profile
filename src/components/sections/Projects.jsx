@@ -13,11 +13,11 @@ const INITIAL_PROJECTS = [
 ];
 
 const generateGrid = (isMobile) => {
-  const radius = isMobile ? 500 : 1200;
-  const anglePerCol = isMobile ? 35 : 18;
-  const numCols = isMobile ? 7 : 13;
+  const radius = isMobile ? 240 : 1200;
+  const anglePerCol = isMobile ? 45 : 18;
+  const numCols = isMobile ? 5 : 13;
   const numRows = 5;
-  const rowHeight = isMobile ? 180 : 240;
+  const rowHeight = isMobile ? 130 : 240;
   
   const displayProjects = [];
   while (displayProjects.length < numRows * numCols) {
@@ -90,7 +90,7 @@ const ProjectCard = ({ item, globalY, numRows, rowHeight }) => {
           target="_blank"
           rel="noreferrer"
           // Significantly reduced image widths
-          className="relative block w-[160px] md:w-[220px] aspect-[4/3] overflow-hidden rounded-md group cursor-pointer transition-all duration-300 ring-1 ring-slate-200 hover:ring-slate-300 hover:shadow-[0_10px_40px_rgba(0,0,128,0.15)]"
+          className="relative block w-[120px] sm:w-[160px] md:w-[220px] aspect-[4/3] overflow-hidden rounded-md group cursor-pointer transition-all duration-300 ring-1 ring-slate-200 hover:ring-slate-300 hover:shadow-[0_10px_40px_rgba(0,0,128,0.15)]"
         >
           <img 
             src={project.image} 
@@ -154,7 +154,7 @@ const Projects = () => {
     <section 
       id="projects" 
       ref={containerRef}
-      className="relative w-full h-[115svh] bg-gradient-to-b from-white to-[#000080] overflow-hidden flex items-center justify-center rounded-b-[3.5rem] lg:rounded-b-[5.5rem] z-10"
+      className="relative w-full h-[80svh] md:h-[115svh] bg-gradient-to-b from-white to-[#000080] overflow-hidden flex items-center justify-center rounded-b-[3.5rem] lg:rounded-b-[5.5rem] z-10"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleReset}
       onTouchMove={handleTouchMove}
