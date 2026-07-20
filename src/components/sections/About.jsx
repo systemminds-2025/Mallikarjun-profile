@@ -4,6 +4,7 @@ import { PERSONAL_INFO, EDUCATION } from '../../utils/constants';
 import seaImg from '../../assets/Education/SEA.png';
 import govtImg from '../../assets/Education/Govt.png';
 import ScrollReveal from '../common/ScrollReveal';
+import AnimatedCounter from '../common/AnimatedCounter';
 
 /**
  * About Section Component
@@ -36,7 +37,7 @@ const About = () => {
             <ScrollReveal animation="scale-up" delay={200}>
               <div className="bg-[#FFFAFA] border border-slate-100 rounded-2xl p-2 sm:p-4 text-center hover:scale-105 transition-transform duration-300 shadow-sm h-full">
                 <span className="block font-display font-extrabold text-[#000080] text-2xl md:text-3xl">
-                  1+
+                  <AnimatedCounter end={1} />
                 </span>
                 <span className="font-sans text-xs font-semibold text-[#6D8196] uppercase tracking-wide">
                   Years Exp
@@ -47,7 +48,7 @@ const About = () => {
             <ScrollReveal animation="scale-up" delay={300}>
               <div className="bg-[#FFFAFA] border border-slate-100 rounded-2xl p-2 sm:p-4 text-center hover:scale-105 transition-transform duration-300 shadow-sm h-full">
                 <span className="block font-display font-extrabold text-[#000080] text-2xl md:text-3xl">
-                  4+
+                  <AnimatedCounter end={4} />
                 </span>
                 <span className="font-sans text-xs font-semibold text-[#6D8196] uppercase tracking-wide">
                   AI Projects
@@ -58,7 +59,7 @@ const About = () => {
             <ScrollReveal animation="scale-up" delay={400}>
               <div className="bg-[#FFFAFA] border border-slate-100 rounded-2xl p-2 sm:p-4 text-center hover:scale-105 transition-transform duration-300 shadow-sm h-full">
                 <span className="block font-display font-extrabold text-[#000080] text-2xl md:text-3xl">
-                  25+
+                  <AnimatedCounter end={25} />
                 </span>
                 <span className="font-sans text-xs font-semibold text-[#6D8196] uppercase tracking-wide">
                   Tech Skills

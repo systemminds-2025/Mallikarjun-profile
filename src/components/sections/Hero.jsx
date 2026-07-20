@@ -50,7 +50,7 @@ const Hero = ({ onViewWork, onHireClick }) => {
   return (
     <main id="home" className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8 lg:gap-4 items-center flex-grow w-full relative mb-0 pt-0">
       {/* Giant Typography Background Watermark */}
-      <div className="absolute top-[-10%] sm:top-[-14%] md:top-[-18%] lg:top-[-22%] left-1/2 -translate-x-1/2 w-max text-[4.5rem] sm:text-[8rem] md:text-[11rem] lg:text-[14rem] font-display font-black text-[#6D8196]/8 leading-none select-none pointer-events-none z-0 tracking-normal uppercase whitespace-nowrap">
+      <div className="absolute top-[-6%] sm:top-[-14%] md:top-[-18%] lg:top-[-22%] left-1/2 -translate-x-1/2 w-max text-[13vw] sm:text-[8rem] md:text-[11rem] lg:text-[14rem] font-display font-black text-[#6D8196]/8 leading-none select-none pointer-events-none z-0 tracking-normal uppercase whitespace-nowrap">
         DEVELOPER
       </div>
 
@@ -72,11 +72,11 @@ const Hero = ({ onViewWork, onHireClick }) => {
         {/* Title */}
         <ScrollReveal animation="slide-right" delay={200}>
           <div className="space-y-0.5">
-            <h1 className="font-display font-extrabold text-[#000080] text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.1] max-w-xl">
+            <h1 className="font-display font-extrabold text-[#000080] text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.1] max-w-xl">
               {PERSONAL_INFO.name}
             </h1>
             <div className="h-10 md:h-12 flex items-center">
-              <span className="bg-gradient-to-r from-[#000080] to-[#ADD8E6] bg-clip-text text-transparent font-display font-extrabold text-2xl md:text-3xl lg:text-4xl transition-all duration-500">
+              <span className="bg-gradient-to-r from-[#000080] to-[#ADD8E6] bg-clip-text text-transparent font-display font-extrabold text-xl sm:text-2xl md:text-3xl lg:text-4xl transition-all duration-500">
                 {displayedText}
               </span>
               <span className="inline-block w-[3px] h-[0.9em] bg-[#000080] ml-1.5 animate-blink rounded-sm self-center"></span>
@@ -86,18 +86,18 @@ const Hero = ({ onViewWork, onHireClick }) => {
 
         {/* Description */}
         <ScrollReveal animation="slide-right" delay={300}>
-          <p className="text-slate-500 text-base md:text-lg font-sans max-w-xl leading-snug">
+          <p className="text-slate-500 text-sm sm:text-base md:text-lg font-sans max-w-xl leading-snug">
             {PERSONAL_INFO.bio}
           </p>
         </ScrollReveal>
 
 
         {/* CTA Buttons Row */}
-        <ScrollReveal animation="fade-up" delay={400}>
-          <div className="flex flex-row flex-nowrap items-center gap-2 sm:gap-4 w-full sm:w-auto">
+        <ScrollReveal animation="fade-up" delay={400} className="w-full sm:w-auto">
+          <div className="flex flex-row flex-nowrap items-center justify-center sm:justify-start gap-3 sm:gap-4 w-full">
             <button
               onClick={onViewWork}
-              className="flex items-center justify-center space-x-1.5 bg-[#000080] hover:bg-[#6D8196] text-white font-sans text-xs sm:text-sm font-semibold px-4 py-2.5 sm:px-6 sm:py-3.5 rounded-xl transition-all hover:shadow-xl hover:shadow-blue-100 active:scale-98 cursor-pointer flex-1 sm:flex-none"
+              className="flex items-center justify-center space-x-1.5 bg-[#000080] hover:bg-[#6D8196] text-white font-sans text-[11px] sm:text-sm font-semibold px-4 py-2.5 sm:px-6 sm:py-3.5 rounded-xl transition-all hover:shadow-xl hover:shadow-blue-100 active:scale-98 cursor-pointer whitespace-nowrap"
             >
               <span>View My Work</span>
               <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
@@ -109,7 +109,7 @@ const Hero = ({ onViewWork, onHireClick }) => {
                 e.preventDefault();
                 alert('CV Download started (mock)');
               }}
-              className="flex items-center justify-center space-x-1.5 bg-[#FFFAFA] hover:bg-[#ADD8E6]/10 border border-[#ADD8E6]/50 text-[#000080] font-sans text-xs sm:text-sm font-semibold px-4 py-2.5 sm:px-6 sm:py-3.5 rounded-xl transition-all active:scale-98 cursor-pointer flex-1 sm:flex-none"
+              className="flex items-center justify-center space-x-1.5 bg-[#FFFAFA] hover:bg-[#ADD8E6]/10 border border-[#ADD8E6]/50 text-[#000080] font-sans text-[11px] sm:text-sm font-semibold px-4 py-2.5 sm:px-6 sm:py-3.5 rounded-xl transition-all active:scale-98 cursor-pointer whitespace-nowrap"
             >
               <span>Download CV</span>
               <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-500 shrink-0" />
@@ -129,13 +129,13 @@ const Hero = ({ onViewWork, onHireClick }) => {
       {/* Right Column: Visual Elements & Profile Image */}
       <div className="lg:col-span-5 flex items-end justify-center relative w-full self-end mt-8 lg:mt-0 mb-0">
         {/* Background Solid Gradient Circle */}
-        <div className="absolute w-[240px] h-[240px] sm:w-[420px] sm:h-[420px] lg:w-[460px] lg:h-[460px] bg-gradient-to-br from-[#ADD8E6]/40 to-[#FFFAFA]/20 rounded-full border border-blue-100/30 bottom-[5%] left-1/2 -translate-x-1/2 z-0" />
+        <div className="absolute w-[240px] h-[240px] sm:w-[320px] sm:h-[320px] md:w-[420px] md:h-[420px] lg:w-[460px] lg:h-[460px] bg-gradient-to-br from-[#ADD8E6]/40 to-[#FFFAFA]/20 rounded-full border border-blue-100/30 bottom-[5%] left-1/2 -translate-x-1/2 z-0" />
 
         {/* Circular dashed grids container */}
         <HeroBackgroundGraphic />
 
         {/* Profile Image */}
-        <ScrollReveal animation="zoom-in" delay={300} className="relative w-[240px] sm:w-[380px] lg:w-[420px] z-10 group transition-all duration-500 hover:scale-[1.02] mb-0">
+        <ScrollReveal animation="zoom-in" delay={300} className="relative w-[240px] sm:w-[320px] md:w-[380px] lg:w-[420px] z-10 group transition-all duration-500 hover:scale-[1.02] mb-0">
           <img
             src={malliImg}
             alt={PERSONAL_INFO.name}

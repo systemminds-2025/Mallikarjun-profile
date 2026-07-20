@@ -16,8 +16,8 @@ const ScrollReveal = ({
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          // Optional: unobserve after revealing once
-          // observer.unobserve(domRef.current);
+        } else {
+          setIsVisible(false);
         }
       });
     }, { threshold });
