@@ -200,7 +200,7 @@ const TrustedBySection = () => (
  * HeroBackgroundGraphic - Decorative background with dashed circles
  */
 const HeroBackgroundGraphic = () => (
-  <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+  <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
     <svg
       className="w-[110%] h-[110%] max-w-[650px] opacity-75"
       viewBox="0 0 500 500"
